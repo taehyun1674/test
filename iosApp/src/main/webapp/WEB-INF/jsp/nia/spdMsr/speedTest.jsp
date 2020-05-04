@@ -94,31 +94,37 @@
 	
 	// 지연시간 콜백
 	function returnSpeedTest(data){
+		
 		var resData = JSON.parse(data).result;		
 		var spChk   = "";
 		
 		$(".speed").attr("style", "");
 		if(idx == 1){
+			var delayEnd = resData.delayEnd == "undefined"? "0":resData.delayEnd;			
 			spChk = resData.delayTime;
 			var styleData = "transform: rotate(" + spChk + "deg) scale(1, 1)"
 			$(".speed").attr("style", styleData);
 			$(".num").empty();			
 			$(".num").append(spChk);
-			
+			$("#internetTerm").text(delayEnd);
 		}		
 		if(idx == 2){
+			var downLoadEnd = resData.delayEnd == "undefined"? "0":resData.downLoadEnd;		
 			spChk = resData.downLoadSpeed;		
 			var styleData = "transform: rotate(" + (spChk*0.7) + "deg) scale(1, 1)"
 			$(".speed").attr("style", styleData);
 			$(".num").empty();			
 			$(".num").append(spChk);
+			$("#internetDownload").text(downLoadEnd);
 		}		
 		if(idx == 3){
+			var upLoadEnd = resData.delayEnd == "undefined"? "0":resData.upLoadEnd;
 			spChk = resData.upLoadSpeed;			
 			var styleData = "transform: rotate(" + spChk + "deg) scale(1, 1)"
 			$(".speed").attr("style", styleData);
 			$(".num").empty();	
 			$(".num").append(spChk);
+			$("#internetUpload").text(upLoadEnd);
 		}
 		
 		if(resData == "end"){

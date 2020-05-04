@@ -40,13 +40,13 @@ body	{}
 
 .topTitle	{height:80px; background:rgba(0,0,0,0.3); border-top:1px solid #000; border-bottom:1px solid #000;} 
 
-.contentContainer.speedWrap .topTitle	{ position:absolute; top:0; left:0; width:100%;}/*	200119	*/
-.contentContainer.timeWrap .topTitle 	{ position:absolute; top:0; left:0; width:100%;}/*	200119	*/
+.contentContainer.speedWrap .topTitle	{ position: absolute; top:0; left:0; width:100%; z-index:1;}/*200421*/
+.contentContainer.timeWrap .topTitle 	{ position: absolute; top:0; left:0; width:100%; z-index:1;}
+/*200421*/
 
 
-
- .contentContainer.speedWrap	{display: flex; -webkit-box-align: center; align-items: center;height:calc(100vh - 70px); padding-top:40px;}/*	200119	*/
- .contentContainer.timeWrap	{display: flex; -webkit-box-align: center; align-items: center;height:calc(100vh - 70px); padding-top:40px;}/*	200119	*/
+ .contentContainer.speedWrap	{display: flex; -webkit-box-align: center; align-items: center;height:calc(100vh - 80px); padding-top:40px;}/*200421*/
+ .contentContainer.timeWrap	{display: flex; -webkit-box-align: center; align-items: center;height:calc(100vh - 80px); padding-top:40px;}/*200421*/
 
 
 .topTitle img	{float:left; height:37px; margin:21px 50px;}
@@ -54,7 +54,7 @@ body	{}
 /*
 .bottomMenuWrap	{position:absolute; left:0; bottom:calc(10px + 1px); height:80px; background:rgba(0,0,0,0.05); width:100%;border-top:1px solid #000; border-bottom:1px solid #000;}*/
 .bottomMenuWrap	{height:80px; background:rgba(0,0,0,0.05); width:100%;border-top:1px solid #000; border-bottom:1px solid #000; margin-bottom:10px;}
-.pageWrap.menuFixed .bottomMenuWrap	{position:absolute; margin-bottom:0; bottom:calc(10px + 1px);}
+.pageWrap.menuFixed .bottomMenuWrap	{position: absolute; margin-bottom:0; bottom:calc(10px + 1px); z-index:1;}/*200428*/
 .pageWrap.menuFixed .contentWrap	{/*padding-bottom:80px;*/}
 .bottomMenuWrap ul li	{float:left; width:20%; height:80px; text-align:center;}
 .bottomMenuWrap ul li a	{display:block; width:100%; height:100%; color:#8c8c8c; font-size:17px; background-size:contain; background-position:50% 0%; background-repeat:no-repeat; padding-top:55px; background-size:cover;}
@@ -71,9 +71,9 @@ body	{}
 .bottomMenuWrap ul li.statistics.on a	{background-image:url("../images/menu_statistics_on.png");}
 .bottomMenuWrap ul li.system.on a	{background-image:url("../images/menu_system_on.png");}
 
-.contentWrap	{position: relative; width:100%; }/*	200119	*/
+.contentWrap	{position: relative; width:100%; padding-bottom:90px; }/*	200119	*/
 
-.contentWrap .btnWrap	{clear:both; text-align:center; padding:56px 0;}
+.contentWrap .btnWrap	{clear:both; text-align:center; padding:50px 0;} /*200421*/
 .contentWrap .btnWrap .btn	{display:inline-block; width:280px; height:74px; line-height:74px; border:none; background:#ff8b00; color:#fff; font-size:40px;/*box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.2);*/}
 
 .inputWrap {position:relative;}
@@ -197,7 +197,8 @@ body	{}
 .speedWrap .contentWrap dd.ready	{color:#b2bef4;}
 
 /*	TIME	*/
-.timeBg {position: relative;  width:572px; height:570px; background: url("../images/bg_time.png") 50% 50% no-repeat;  background-size:contain; margin: 74px auto 0;    text-align: center;}
+.timeBg {position: relative;  width:572px; height:570px; background: url("../images/bg_time.png") 50% 50% no-repeat;  background-size:contain; margin: 80px auto 0;    text-align: center;}
+/*200423*/
 
 .timeWrap .contentWrap .timeResultWrap	{position:absolute; top:0; left:0; width:100%; text-align:center; padding-top:150px;}
 .timeWrap .contentWrap .timeResultWrap .title	{color:#808080; font-size:28px; margin-bottom:23px;}
@@ -363,9 +364,17 @@ body	{}
 .statisticsWrap .contentWrap .tableWrap.time .legendWrap dt.naver	{color:#44af35;}
 .statisticsWrap .contentWrap .tableWrap.time .legendWrap dt.daum	{color:#4d6cff;}
 
+/*200421 - 텍스트*/
+.statisticsWrap .contentWrap .tableWrap.time .legendWrap dt.google	{color:#44af35;}
+.statisticsWrap .contentWrap .tableWrap.time .legendWrap dt.youtube	{color:#4d6cff;}
+
 .statisticsWrap .contentWrap .tableWrap.time .legendWrap dd	{float:right; width:44px; height:24px; margin-top:20px;}
 .statisticsWrap .contentWrap .tableWrap.time .legendWrap dd.naver	{background:url("../images/legend_naver.png") 50% 0% repeat-y; background-size:contain;}
 .statisticsWrap .contentWrap .tableWrap.time .legendWrap dd.daum	{background:url("../images/legend_daum.png") 50% 0% repeat-y; background-size:contain;}
+
+/*200421 - 그래프 */
+.statisticsWrap .contentWrap .tableWrap.time .legendWrap dd.google	{background:url("../images/legend_google.png") 50% 0% repeat-y; background-size:contain;}
+.statisticsWrap .contentWrap .tableWrap.time .legendWrap dd.youtube	{background:url("../images/legend_youtube.png") 50% 0% repeat-y; background-size:contain;}
 
 .statisticsWrap .contentWrap .tableWrap.time .graphWrap > ul	{padding: 114px 56px 56px;}
 .statisticsWrap .contentWrap .tableWrap.time .graphWrap > ul > li	{width:33.3%;}

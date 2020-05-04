@@ -383,4 +383,22 @@
 			#{start_time}, #{end_time}, #{connection_success}, #{timeline}, #{country}, #{locality}, #{sublocality}, #{thoroughfare}, #{subthoroughfare}, #{cell_id} 
 		)
 	</insert>
+	
+	<!-- WIFI INFO -->
+	<insert id="insertWifiInfo" parameterType="hashmap">
+		INSERT INTO NETWORK_INFO_WIFI(
+			TEST_NETWORK_TYPE, GROUP_ID,  IP_ADDRESS, MAC_ADDRESS, SIGNAL_LEVEL
+		)VALUES(
+			#{test_network_type}, #{GROUP_ID}, #{ip_address}, #{mac_address}, 0 
+		)
+	</insert>
+	
+	<!-- NON_WIFI INFO -->
+	<insert id="insertNonWifiInfo" parameterType="hashmap">
+		INSERT INTO NETWORK_INFO_NONWIFI(
+			TEST_NETWORK_TYPE, GROUP_ID, IS_GSM, SIGNAL_STRENGTH, SIGNAL_LEVEL, NETWORK_TYPE, NETWORK_COUNTRY_ISO, NETWORK_OPERATOR, NETWORK_OPERATOR_NAME
+		)VALUES(
+			#{test_network_type}, #{GROUP_ID}, 'true', 0, 0, #{network_type}, #{network_country_iso}, #{network_operator}, #{network_operator_name}
+		)
+	</insert>
 </mapper>

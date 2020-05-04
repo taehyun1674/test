@@ -127,6 +127,12 @@ public class SpdMsrServiceImpl extends AbstractServiceImpl implements SpdMsrServ
 			
 			dao.insert("speedman.speedtest2InternetInsert", rsMap);
 			
+			if(Utility.NVL(rsMap.get("ip_address")).equals("")) { 
+				dao.insert("speedman.insertNonWifiInfo", rsMap);
+			} else {
+				dao.insert("speedman.insertWifiInfo", rsMap);
+			}
+			
 		}catch(Exception e){
 			System.out.println(e.toString());
 		}
@@ -213,6 +219,13 @@ public class SpdMsrServiceImpl extends AbstractServiceImpl implements SpdMsrServ
 			
 			dao.insert("speedman.insertWebWebTest", wm);
 			
+			rsMap.put("GROUP_ID", groupIdx);
+			
+			if (Utility.NVL(rsMap.get("ip_address")).equals("")) {
+		        dao.insert("speedman.insertNonWifiInfo", rsMap);
+			} else {
+		        dao.insert("speedman.insertWifiInfo", rsMap);
+		    }
 		}catch(Exception e){
 			System.out.println(e.toString());
 		}

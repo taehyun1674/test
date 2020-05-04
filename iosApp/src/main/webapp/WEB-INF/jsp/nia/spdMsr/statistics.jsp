@@ -415,7 +415,7 @@
 				<ul class="menuBtn" id="myMenuBtn">
 					<li class="on" onclick="fn_network('LTE')">LTE</li>
 					<li  onclick="fn_network('3G')">3G</li>
-					<li  onclick="fn_network('WIFI')">WiFi</li>
+					<li  onclick="fn_network('WIFI')">WiFi</li>                                                                                 
 				</ul>
 				<div class="dateWrap">
 					<p><spring:message code="ui.statics.date"></spring:message> ${standard }</p>
@@ -425,10 +425,10 @@
 						<li onclick="fn_period('M')"><spring:message code="ui.statics.month"></spring:message></li>
 					</ul>
 				</div>
-				<div class="graphWrap">
-					<ul>
-						<li>
-							<ul>
+				<div class="graphWrap">                                                                                                                                        
+					<ul>                                    
+						<li>                                                                                                                                                                                                      
+							<ul>                   
 								<li class="data" id="myDown">0</li>
 								<li class="graph" id="myDown_graph"></li>
 								<!-- <li class="title">다운로드<span>Mbps</span></li> -->
@@ -436,13 +436,13 @@
 							</ul>
 						</li>
 						<li>
-							<ul>
+							<ul>                              
 								<li class="data" id="myUpload">0</li>
 								<li class="graph" id="myUpload_graph"></p></li>
 								<!--  <li class="title">업로드<span> Mbps</span></li> -->
 								<li class="title"><spring:message code="ui.message.TableUp"></spring:message><span> Mbps</span></li>
 							</ul>
-						</li>
+						</li>                          
 						<li>
 							<ul>
 								<li class="data" id="myJitter">0</li>

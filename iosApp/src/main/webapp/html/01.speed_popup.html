@@ -1,0 +1,266 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>인터넷속도_popup</title>
+	<meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="../css/common.css" media="screen" />
+	<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+</head>
+<body>
+<div class="wrapper pageWrap">
+	<div class="contentContainer speedWrap">
+		<div class="topTitle">
+			<img class="logo" src="../images/logo.png" width="" height="" alt="" />
+			<p>LTE 인터넷 속도 측정</p>
+		</div>
+		<div class="contentWrap">
+			<ul class="popupSample">
+				<li><a class="popupBtn" id="chargePopup">통화료 부과 안내</a></li>
+				<li><a class="popupBtn" id="gpsInfoPopup">LTE 구간</a></li>
+				<li><a class="popupBtn" id="placePopup">측정장소 지정</a></li>
+				<li><a class="popupBtn" id="resultPopup">측정결과</a></li>
+				<li><a class="popupBtn" id="togglePopup">토글버튼 팝업</a></li>	<!--	191123	-->
+				<li><a class="popupBtn" id="infoPopup">안내문구 팝업</a></li>	<!--	191123	-->
+			</ul>
+		</div>
+		<div class="bottomMenuWrap">
+			<ul>
+				<li class="speed on"><a href="#">인터넷속도</a></li>
+				<li class="time"><a href="#">웹접속시간</a></li>
+				<li class="history"><a href="#">측정이력</a></li>
+				<li class="statistics"><a href="#">측정통계</a></li>
+				<li class="system"><a href="#">설정</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!--	popup - 통화료 부과 안내	-->
+	<div class="popupContainer chargePopup">
+		<div class="popupWrap">
+			<div class="popupTopWrap">
+				<a class="close">close</a>
+			</div>
+			<div class="popupContentWrap">
+				<div class="popupContent">
+					<div class="imgWrap">
+						<img src="images/img_popup_charge.png" width="" height="" alt="" />
+					</div>
+					<p>
+						이동통신망<span>(WiFi 제외)</span>에<br />
+						접속된 상태에서 품질 측정시 별도의<br />
+						데이터 통화료가 부가될 수 있습니다.
+					</p>
+					<img src="images/img_popup_hr.png" width="" height="" alt="" />
+					<p>
+						LGU+<br />
+						이용자의 경우 요금이 부과되지 않습니다.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="popupDimmed"></div>
+	</div>
+<!--	//	popup - 통화료 부과 안내	-->
+<!--	popup - LTE 구간	-->
+	<div class="popupContainer gpsInfoPopup">
+		<div class="popupWrap">
+			<div class="popupTopWrap">
+				<a class="close">close</a>
+			</div>
+			<div class="popupContentWrap">
+				<div class="popupContent">
+					<div class="imgWrap">
+						<img src="images/img_popup_gpsinfo.png" width="" height="" alt="" />
+					</div>
+					<p>
+						현재 LTE 구간이며 GPS 허용하시면<br />
+						더 상세한 정보가 제공됩니다.
+					</p>
+					<img src="images/img_popup_hr.png" width="" height="" alt="" />
+					<p>
+						월 / 총 10 회<br />
+						2018-08-20 / 3 회<br />
+						측정하였습니다.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="popupDimmed"></div>
+	</div>
+<!--	//	popup - LTE 구간	-->
+<!--	popup - 측정장소 지정	-->
+	<div class="popupContainer placePopup">
+		<div class="popupWrap">
+			<div class="popupTopWrap">
+				<a class="close">close</a>
+			</div>
+			<div class="popupContentWrap">
+				<div class="popupContent">
+					<div class="imgWrap">
+						<img src="images/img_popup_place.png" width="" height="" alt="" />
+					</div>
+					<p>
+						<span>측정장소 지정</span><br />
+						LTE(3G)
+					</p>
+					<img src="images/img_popup_hr.png" width="" height="" alt="" />
+					<p>
+						측정장소를 지정하시면<br />
+						장소별 측정 품질 자료에 반영하겠습니다.
+					</p>
+					<ul>
+						<li>실내</li>
+						<li class="on">실외</li>
+						<li>지하철</li>
+					</ul>
+				</div>
+			<!--	191121	-->
+				<div class="btnWrap">
+					<input type="button" name="" id="" class="btn" value="확인" />
+				</div>
+			<!--	//191121	-->
+			</div>
+		</div>
+		<div class="popupDimmed"></div>
+	</div>
+<!--	//	popup - 측정장소 지정	-->
+<!--	popup - 측정결과	-->
+	<div class="popupContainer resultPopup">
+		<div class="popupWrap">
+			<div class="popupTopWrap">
+				<a class="close">close</a>
+			</div>
+			<div class="popupContentWrap">
+				<div class="popupContent">
+					<p class="title">
+						측정결과
+					</p>
+					<ul>
+						<li>
+							<dl>
+								<dt>다운로드<span>Mbps</span></dt>
+								<dd>98.45</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt>업로드<span>Mbps</span></dt>
+								<dd>85.37</dd>
+							</dl>
+						</li>
+					</ul>
+					<ul class="average">
+						<li>
+							<p>72.45</p>
+							<p>대한민국 평균</p>
+							<p>72.45</p>
+						</li>
+						<li>
+							<p>72.45</p>
+							<p>주변지역 평균</p>
+							<p>72.45</p>
+						</li>
+					</ul>
+					<ul>
+						<li>
+							<dl>
+								<dt>지연시간<span>ms</span></dt>
+								<dd>12.863</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt>손실률<span>%</span></dt>
+								<dd>1</dd>
+							</dl>
+						</li>
+					</ul>
+					<p>
+						위치서비스(GPS)를 이용하시면<br />
+						주변지역 속도 정보를 확인 할 수 있습니다.
+					</p>
+					<div class="btnWrap">
+						<input type="button" name="" id="" class="btn" value="확인" onclick=""/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="popupDimmed"></div>
+	</div>
+<!--	//	popup - 측정결과	-->
+<!--	191123 popup - 토글버튼 팝업	-->
+	<div class="popupContainer togglePopup">
+		<div class="popupWrap systemWrap">
+			<div class="popupTopWrap">
+				<a class="close">close</a>
+			</div>
+			<div class="popupContentWrap">
+				<div class="popupContent">
+					<p class="title">
+						 설정변경
+					</p>
+					<div class="contentWrap">
+						<div class="topmenu">
+							<ul>
+								<li>
+									<p class="title">데이터망 허용</p>
+									<div class="toggleWrap">
+										<input type="checkbox" id="toggle" />
+										<label for="toggle"></label>
+									</div>
+								</li>
+								<li>
+									<p class="title">다중 접속 허용</p>
+									<div class="toggleWrap">
+										<input type="checkbox" id="multi" />
+										<label for="multi"></label>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="btnWrap">
+						<ul>
+							<li><a class="btn close">취소</a></li>
+							<li><a class="btn">확인</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="popupDimmed"></div>
+	</div>
+<!--	//	191123 popup - 토글버튼 팝업	-->
+<!--	191123 popup - 안내문구 팝업	-->
+	<div class="popupContainer infoPopup">
+		<div class="popupWrap">
+			<div class="popupTopWrap">
+				<a class="close">close</a>
+			</div>
+			<div class="popupContentWrap">
+				<div class="popupContent">
+					<p class="title">
+						 데이터망 상태알림
+					</p>
+					<div class="contentWrap">
+						<p>데이터망이 허용되지 않았습니다.<br />설정에서 변경해 주세요.</p>
+					</div>
+					<div class="btnWrap">
+						<ul>
+							<li><a class="btn close">취소</a></li>
+							<li><a class="btn">설정가기</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="popupDimmed"></div>
+	</div>
+<!--	//	191123 popup - 안내문구 팝업	-->
+</body>
+</html>

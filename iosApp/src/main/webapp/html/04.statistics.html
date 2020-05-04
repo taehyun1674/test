@@ -1,0 +1,382 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>측정통계</title>
+	<meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="../css/common.css" media="screen" />
+	<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+</head>
+<body>
+<div class="wrapper pageWrap">
+	<div class="contentContainer statisticsWrap">
+		<div class="topTitle">
+			<img class="logo" src="../images/logo.png" width="" height="" alt="" />
+			<p>측정통계</p>
+		</div>
+		<div class="contentWrap">
+			<ul class="tabBtn">
+				<li class="on" id="table_my">내 통계</li>
+				<li id="table_speed">인터넷 속도</li>
+				<li id="table_time">웹 접속 시간</li>
+			</ul>
+			<div class="tableWrap table_my">
+				<ul class="menuBtn">
+					<li class="on">LTE</li>
+					<li>3G</li>
+					<li>WiFi</li>
+				</ul>
+				<div class="dateWrap">
+					<p>기준일 2018-08-20</p>
+					<ul>
+						<li class="on">일간</li>
+						<li>주간</li>
+						<li>월간</li>
+					</ul>
+				</div>
+				<div class="graphWrap">
+					<ul>
+						<li>
+							<ul>
+								<li class="data">95.30</li>
+								<li class="graph"><p style="height:95.30%"></p></li>
+								<li class="title">다운로드<span>Mbps</span></li>
+							</ul>
+						</li>
+						<li>
+							<ul>
+								<li class="data">89.27</li>
+								<li class="graph"><p style="height:89.27%"></p></li>
+								<li class="title">업로드<span> Mbps</span></li>
+							</ul>
+						</li>
+						<li>
+							<ul>
+								<li class="data">21.06</li>
+								<li class="graph"><p style="height:21.06%"></p></li>
+								<li class="title">지연시간<span> ms</span></li>
+							</ul>
+						</li>
+						<li>
+							<ul>
+								<li class="data">0</li>
+								<li class="graph"><p style="height:0%"></p></li>
+								<li class="title">손실률<span>%</span></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="tableWrap table_speed" style="display:block;">
+				<ul class="menuBtn">
+					<li class="on">LTE</li>
+					<li>3G</li>
+					<li>WiFi</li>
+				</ul>
+				<div class="dateWrap">
+					<p>광역시도별 평균 속도 기상도<span>기준일 2019-12-25</span></p>
+					<ul>
+						<li class="on">일간</li>
+						<li>주간</li>
+						<li>월간</li>
+					</ul>
+				</div>
+				<div class="scrollWrap">
+					<div class="summaryWrap">
+						<ul class="summary">
+							<li>
+								<dl>
+									<dt>다운로드<span>Mbps</span></dt>
+									<dd id="internet_down">00.00</dd>
+								</dl>
+							</li>
+							<li>
+								<dl>
+									<dt>업로드<span>Mbps</span></dt>
+									<dd id="internet_up">00.00</dd>
+								</dl>
+							</li>
+						</ul>
+						<p>사업자 전체 평균 속도</p>
+					</div>
+					<div class="mapWrap">
+						<ul>
+							<li class="map01 sunny"></li>
+							<li class="map02 foggy"></li>
+							<li class="map03 cloudy"></li>
+							<li class="map04 rainy"></li>
+							<li class="map05 sunny"></li>
+							<li class="map06 sunny"></li>
+							<li class="map07 sunny"></li>
+							<li class="map08 sunny"></li>
+							<li class="map09 sunny"></li>
+							<li class="map10 sunny"></li>
+							<li class="map11 sunny"></li>
+							<li class="map12 sunny"></li>
+							<li class="map13 sunny"></li>
+							<li class="map14 sunny"></li>
+							<li class="map15 sunny"></li>
+							<li class="map16 sunny"></li>
+							<li class="map17 sunny"></li>
+						</ul>
+						<div class="legendWrap">
+							<ul>
+								<li><img src="../images/ico_sunny.png" width="" height="" alt="" />90% 이상</li>
+								<li><img src="../images/ico_foggy.png" width="" height="" alt="" />70% 이상</li>
+								<li><img src="../images/ico_cloudy.png" width="" height="" alt="" />50% 이상</li>
+								<li><img src="../images/ico_rainy.png" width="" height="" alt="" />50% 미만</li>
+							</ul>
+							<p>3사 통합 평균 속도 대비</p>
+						</div>
+					</div>
+					<p class="tableViewBtn"><img src="../images/btn_tableview.png" width="" height="" alt="" /></p>
+				</div>
+			</div>
+			<div class="tableWrap time table_time">
+				<div class="dateWrap">
+					<p>기준일 2018-08-20</p>
+					<ul>
+						<li class="on">일간</li>
+						<li>주간</li>
+						<li>월간</li>
+					</ul>
+				</div>
+				<div class="legendWrap">
+					<dl>
+						<dt class="naver">NAVER</dt>
+						<dd class="naver"></dd>
+						<dt class="daum">DAUM</dt>
+						<dd class="daum"></dd>
+					</dl>
+				</div>
+				<div class="graphWrap">
+					<ul>
+						<li>
+							<ul>
+								<li class="data">
+									<ul>
+										<li>0.37</li>
+										<li>0.80</li>
+									</ul>
+								</li>
+								<li class="graph">
+									<ul>
+										<li class="naver"><p style="height:37%"></p></li>
+										<li class="daum"><p style="height:80%"></p></li>
+									</ul>								
+								</li>
+								<li class="title">LTE</li>
+							</ul>
+						</li>
+						<li>
+							<ul>
+								<li class="data">
+									<ul>
+										<li>0.37</li>
+										<li>0.80</li>
+									</ul>
+								</li>
+								<li class="graph">
+									<ul>
+										<li class="naver"><p style="height:37%"></p></li>
+										<li class="daum"><p style="height:80%"></p></li>
+									</ul>								
+								</li>
+								<li class="title">3G</li>
+							</ul>
+						</li>
+						<li>
+							<ul>
+								<li class="data">
+									<ul>
+										<li>0.37</li>
+										<li>0.80</li>
+									</ul>
+								</li>
+								<li class="graph">
+									<ul>
+										<li class="naver"><p style="height:37%"></p></li>
+										<li class="daum"><p style="height:80%"></p></li>
+									</ul>								
+								</li>
+								<li class="title">WiFi</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<p class="info">네이버 . 다음 접속 시간 (sec)</p>
+			</div>
+			<div class="tableWrap speed_table">
+				<ul class="menuBtn">
+					<li class="on">LTE</li>
+					<li>3G</li>
+					<li>WiFi</li>
+				</ul>
+				<div class="dateWrap">
+					<p>시/군별 평균 속도 기상도</p>
+					<ul>
+						<li class="on">일간</li>
+						<li>주간</li>
+						<li>월간</li>
+					</ul>
+				</div>
+				<div class="scrollWrap">
+					<div class="summaryWrap">
+						<ul class="summary">
+							<li>
+								<dl>
+									<dt>다운로드<span>Mbps</span></dt>
+									<dd>98.45</dd>
+								</dl>
+							</li>
+							<li>
+								<dl>
+									<dt>업로드<span>Mbps</span></dt>
+									<dd>85.37</dd>
+								</dl>
+							</li>
+						</ul>
+						<p>시/군별 사업자 평균 속도</p>
+					</div>
+					<div class="table">
+						<table summary="웹 접속 시간">
+							<caption class="blind">웹 접속 시간</caption>
+							<colgroup>
+								<col />
+								<col span="3" style="width:23%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th>전국</th>
+									<th>SKT</th>
+									<th>KT</th>
+									<th>LGU+</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>강원도</td>
+									<td><img src="../images/ico_sunny.png" width="" height="" alt="" /></td>
+									<td><img src="../images/ico_cloudy.png" width="" height="" alt="" /></td>
+									<td><img src="../images/ico_foggy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>경기도</td>
+									<td><img src="images/ico_rainy.png" width="" height="" alt="" /></td>
+									<td>NO DATA</td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>경상남도</td>
+									<td>NO DATA</td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_rainy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>경상북도</td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_sunny.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_cloudy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>광주광역시</td>
+									<td><img src="images/ico_sunny.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_cloudy.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>대구광역시</td>
+									<td><img src="images/ico_rainy.png" width="" height="" alt="" /></td>
+									<td>NO DATA</td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>대전광역시</td>
+									<td>NO DATA</td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_rainy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>부산광역시</td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_sunny.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_cloudy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>서울특별시</td>
+									<td><img src="images/ico_sunny.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_cloudy.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>울산광역시</td>
+									<td><img src="images/ico_rainy.png" width="" height="" alt="" /></td>
+									<td>NO DATA</td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>인천광역시</td>
+									<td>NO DATA</td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_rainy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>전라남도</td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_sunny.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_cloudy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>전라북도</td>
+									<td><img src="images/ico_sunny.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_cloudy.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>제주특별자치도</td>
+									<td><img src="images/ico_rainy.png" width="" height="" alt="" /></td>
+									<td>NO DATA</td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>충청남도</td>
+									<td>NO DATA</td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_rainy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>충청북도</td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_sunny.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_cloudy.png" width="" height="" alt="" /></td>
+								</tr>
+								<tr>
+									<td>세종특별시</td>
+									<td><img src="images/ico_foggy.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_sunny.png" width="" height="" alt="" /></td>
+									<td><img src="images/ico_cloudy.png" width="" height="" alt="" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<p class="mapViewBtn"><img src="images/btn_mapview.png" width="" height="" alt="" /></p>
+				</div>
+			</div>
+		</div>
+		<div class="bottomMenuWrap">
+			<ul>
+				<li class="speed"><a href="#">인터넷속도</a></li>
+				<li class="time"><a href="#">웹접속시간</a></li>
+				<li class="history"><a href="#">측정이력</a></li>
+				<li class="statistics on"><a href="#">측정통계</a></li>
+				<li class="system"><a href="#">설정</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+</html>

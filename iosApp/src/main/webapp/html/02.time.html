@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>웹접속시간</title>
+	<meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="css/common.css" media="screen" />
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<div class="wrapper pageWrap">
+	<div class="contentContainer timeWrap">
+		<div class="topTitle">
+			<img class="logo" src="images/logo.png" width="" height="" alt="" />
+			<p>LTE 인터넷 속도 측정</p>
+		</div>
+		<div class="contentWrap">
+			<div class="timeBg">
+			</div>
+			<div class="timeResultWrap">
+				<p class="title">URL 직접입력</p>
+				<img src="images/time.gif" width="" height="" alt="" />	<!--	측정시 이미지 -->
+			</div>
+			<dl>
+				<dt>
+					<p class="inputWrap">
+						<input type="checkbox" name="" id="check01" />
+						<label for="check01"><img class="logo" src="images/img_naver.png" width="" height="" alt="naver" /></label>
+					</p>
+				</dt>
+				<dd><span>0.82</span> sec</dd>
+				<dt>
+					<p class="inputWrap">
+						<input type="checkbox" name="" id="check02" />
+						<label for="check02"><img class="logo" src="images/img_daum.png" width="" height="" alt="daum" /></label>
+					</p>
+				</dt>
+				<dd class="ready"><span>0</span> sec</dd>	<!--	측정 전 클래스 추가 - ready	-->
+				<dt>
+					<p class="inputWrap url">
+						<input type="checkbox" name="" id="check03" />
+						<label for="check03"></label>
+						<input type="text" placeholder="URL 직접입력" />
+					</p>
+				</dt>
+				<dd class="ready"><span>00.00</span> sec</dd>	<!--	측정 전 클래스 추가 - ready	-->
+			</dl>
+			<div class="btnWrap">
+				<input type="button" name="" id="" class="btn" value="중지" />
+			</div>
+		</div>
+		<div class="bottomMenuWrap">
+			<ul>
+				<li class="speed"><a href="#">인터넷속도</a></li>
+				<li class="time on"><a href="#">웹접속시간</a></li>
+				<li class="history"><a href="#">측정이력</a></li>
+				<li class="statistics"><a href="#">측정통계</a></li>
+				<li class="system"><a href="#">설정</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+</html>

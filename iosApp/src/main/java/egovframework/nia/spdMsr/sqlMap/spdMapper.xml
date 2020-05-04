@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="speedman">
+
+	<!-- 측정 평균 데이터 -->
+	<select id="getAvgData" resultType="hashmap">
+		SELECT
+			TM.*,
+			ROUND(((TM.LteDn + TM.gDn + TM.WifiDn) / 3), 2)AS LocalDn,
+			ROUND(((TM.LteUp + TM.gUp + TM.WifiUp) / 3), 2)AS LocalUp
+		FROM(
+			SELECT
+				SUM(TI.LteDn)AS LteDn, SUM(TI.LteUp)AS LteUp, SUM(TI.gDn)AS gDn, SUM(TI.gUp)AS gUp, SUM(TI.WifiDn)AS WifiDn, SUM(TI.WifiUp)AS WifiUp
+			FROM(
+					SELECT 
+						  ROUND(AVG(CONVERT(FLOAT, 0)), 2) AS LteDn
+						, ROUND(AVG(CONVERT(FLOAT, 0)), 2) AS LteUp
+						, ROUND(AVG(CONVERT(FLOAT, case when download_bandwidth > 0 then download_bandwidth else 0 end)), 2)AS gDn
+						, ROUND(AVG(CONVERT(FLOAT, case when upload_bandwidth > 0 then upload_bandwidth else 0 end)), 2) AS gUp
+						, ROUND(AVG(CONVERT(FLOAT, 0)), 2)AS WifiDn
+						, ROUND(AVG(CONVERT(FLOAT, 0)), 2) AS WifiUp
+					FROM SPEEDTEST2
+					WHERE 1=1
+					AND CONVERT(VARCHAR(8), timestamp, 112) BETWEEN CONVERT(VARCHAR(8), GETDATE()-31, 112) AND CONVERT(VARCHAR(8), GETDATE()-1, 112)
+					AND NETWORK_ID = 1
+					
+					UNION ALL
+					
+					SELECT 
+						  ROUND(AVG(CONVERT(FLOAT, 0)), 2) AS LteDn
+						, ROUND(AVG(CONVERT(FLOAT, 0)), 2) AS LteUp
+						, ROUND(AVG(CONVERT(FLOAT, 0)), 2)AS gDn
+						, ROUND(AVG(CONVERT(FLOAT, 0)), 2) AS gUp
+						, ROUND(AVG(CONVERT(FLOAT, case when download_bandwidth > 0 then download_bandwidth else 0 end)), 2)AS WifiDn
+						, ROUND(AVG(CONVERT(FLOAT, case when upload_bandwidth > 0 then upload_bandwidth else 0 end)), 2) AS WifiUp
+					FROM SPEEDTEST2
+					WHERE 1=1
+					AND CONVERT(VARCHAR(8), timestamp, 112) BETWEEN CONVERT(VARCHAR(8), GETDATE()-31, 112) AND CONVERT(VARCHAR(8), GETDATE()-1, 112)
+					AND NETWORK_ID = 2
+					
+					UNION ALL
+					
+					SELECT
+						 ROUND(AVG(CONVERT(FLOAT, case when download_bandwidth > 0 then download_bandwidth else 0 end)), 2)AS LteiDn
+						, ROUND(AVG(CONVERT(FLOAT, case when upload_bandwidth > 0 then upload_bandwidth else 0 end)), 2) AS LteiUp
+						, ROUND(AVG(CONVERT(FLOAT, 0)), 2)AS gDn
+						, ROUND(AVG(CONVERT(FLOAT, 0)), 2) AS gUp
+						, ROUND(AVG(CONVERT(FLOAT, 0)), 2)AS WifiDn
+						, ROUND(AVG(CONVERT(FLOAT, 0)), 2) AS WifiUp
+					FROM SPEEDTEST2
+					WHERE 1=1
+					AND CONVERT(VARCHAR(8), timestamp, 112) BETWEEN CONVERT(VARCHAR(8), GETDATE()-31, 112) AND CONVERT(VARCHAR(8), GETDATE()-1, 112)
+					AND NETWORK_ID = 3
+			)TI
+		)TM	
+	</select>
+	
+	<!-- 내 통계 -->
+	<select id="getMyStatistics" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			  STR(ROUND(AVG(CONVERT(FLOAT, M.DOWNLOAD)), 2), 8, 2)AS DOWNLOAD
+			, STR(ROUND(AVG(CONVERT(FLOAT, M.UPLOAD)), 2), 8, 2) as UPLOAD
+			, STR(ROUND(AVG(CONVERT(FLOAT, M.JITTER)), 2), 8, 2)AS JITTER
+			, STR(ROUND(AVG(CONVERT(FLOAT, M.LOSS)), 2), 8, 2)AS LOSS
+		FROM(
+			SELECT
+				  SUBS_ID 
+				, ROUND(AVG(CONVERT(FLOAT, case when download_bandwidth > 0 then download_bandwidth else 0 end)), 2)AS DOWNLOAD
+				, ROUND(AVG(CONVERT(FLOAT, case when upload_bandwidth > 0 then upload_bandwidth else 0 end)), 2) as UPLOAD
+				, ROUND(AVG(CONVERT(FLOAT, udp_jitter)), 2)AS JITTER
+				, ROUND(AVG(CONVERT(FLOAT, udp_loss)), 2)AS LOSS
+			FROM SPEEDTEST2
+			WHERE 1=1
+			AND SUBS_ID IN ( 
+				SELECT SUBS_ID FROM SUBSCRIBE
+				WHERE 1=1
+				<if test='PERIOD.equals("D")'>
+					AND CONVERT(VARCHAR(10), timestamp, 112) = CONVERT(VARCHAR(10), GETDATE()-1, 23)
+				</if>
+				<if test='PERIOD.equals("W")'>
+					AND CONVERT(VARCHAR(10), timestamp, 112) BETWEEN CONVERT(VARCHAR(10), GETDATE()-8, 23) AND CONVERT(VARCHAR(10), GETDATE()-1, 23)
+				</if>
+				<if test='PERIOD.equals("M")'>
+					AND CONVERT(VARCHAR(10), timestamp, 112) BETWEEN CONVERT(VARCHAR(10), GETDATE()-31, 23) AND CONVERT(VARCHAR(10), GETDATE()-1, 23)
+				</if>
+				AND DEVICE_ID = #{DEVICE_ID}
+			)
+			<if test='NETWORK.equals("3G")'>
+				AND NETWORK_ID = 1
+			</if>
+			<if test='NETWORK.equals("WIFI")'>
+				AND NETWORK_ID = 2
+			</if>
+			<if test='NETWORK.equals("LTE")'>
+				AND NETWORK_ID = 3
+			</if>
+			GROUP BY SUBS_ID
+		)M		
+	</select>
+	
+	<!-- 평균 다운로드 업로드  -->
+	<select id="AVG_STATICS" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			  STR(ROUND(AVG(ISNULL(download, 0)),2), 8, 2) AS AVG_DOWNLOAD
+			, STR(ROUND(AVG(ISNULL(upload, 0)), 2), 8, 2) AS AVG_UPLOAD                              
+		FROM NIA_APP_STAT_DAILY WHERE ISP_ID = 99999
+		<if test='NETWORK.equals("3G")'>
+			AND NETWORK_ID = 1
+		</if>
+		<if test='NETWORK.equals("WIFI")'>
+			AND NETWORK_ID = 2
+		</if>
+		<if test='NETWORK.equals("LTE")'>
+			AND NETWORK_ID = 3
+		</if>
+	</select>
+	
+	<!-- 기간별로 평균 다운로드 업로드 -->
+	<select id="AVG_PERIOD_STATICS" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			  STR(ROUND(AVG(ISNULL(download, 0)),2), 8, 2) AS AVG_DOWNLOAD
+			, STR(ROUND(AVG(ISNULL(upload, 0)), 2), 8, 2) AS AVG_UPLOAD                              
+		FROM NIA_APP_STAT_DAILY WHERE ISP_ID = 99999
+		<if test='NETWORK.equals("3G")'>
+			AND NETWORK_ID = 1
+		</if>
+		<if test='NETWORK.equals("WIFI")'>
+			AND NETWORK_ID = 2
+		</if>
+		<if test='NETWORK.equals("LTE")'>
+			AND NETWORK_ID = 3
+		</if>
+		<if test='PERIOD.equals("D")'>
+			AND PERIOD = 'day'
+		</if>
+		<if test='PERIOD.equals("W")'>
+			AND PERIOD = 'week'
+		</if>
+		<if test='PERIOD.equals("M")'>
+			AND PERIOD = 'month'
+		</if> 
+	</select>
+
+	<!-- 지역 통계 -->
+	<select id="STATICS_LOCALITY" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			STR(M.download/2, 8, 2) as  DOWNLOAD,
+			STR(M.upload/2, 8, 2) as UPLOAD,
+			STR(M.jitter/2, 8, 2) as JITTER,
+			STR(M.loss/2, 8, 2) as LOSS,
+			M.LOCALITY
+		FROM(
+			SELECT
+				SUM(A.download) AS download,
+				SUM(A.upload) AS upload,
+				SUM(A.jitter) AS jitter,
+				SUM(A.loss) AS loss,
+				A.LOCALITY
+			FROM(
+				SELECT  
+					 ISP_ID
+					, ROUND(AVG(CONVERT(FLOAT, case when download_bandwidth > 0 then download_bandwidth else 0 end)), 2)AS download
+					, ROUND(AVG(CONVERT(FLOAT, case when upload_bandwidth > 0 then upload_bandwidth else 0 end)), 2) as upload
+					, ROUND(AVG(CONVERT(FLOAT, udp_jitter)), 2)AS jitter
+					, ROUND(AVG(CONVERT(FLOAT, udp_loss)), 2)AS loss
+					, LOCALITY
+				FROM SPEEDTEST2
+				WHERE 1=1
+				AND ISP_ID IS NOT NULL
+				<if test='NETWORK.equals("3G")'>
+					AND NETWORK_ID = 1
+				</if>
+				<if test='NETWORK.equals("WIFI")'>
+					AND NETWORK_ID = 2
+				</if>
+				<if test='NETWORK.equals("LTE")'>
+					AND NETWORK_ID = 3
+				</if>				 
+				AND ISP_ID <![CDATA[ <> ]]> 0
+				AND LOCALITY IN ('서울특별시','인천광역시','대구광역시','대전광역시','부산광역시','광주광역시','울산광역시','경기도','강원도','충청남도','충청북도','경상남도','경상북도','전라남도','전라북도','제주도','세종특별자치시')
+				<if test='PERIOD.equals("D")'>
+					AND CONVERT(VARCHAR(8), timestamp, 112) = CONVERT(VARCHAR(8), GETDATE()-1, 112)
+				</if>
+				<if test='PERIOD.equals("W")'>
+					AND CONVERT(VARCHAR(8), timestamp, 112) BETWEEN CONVERT(VARCHAR(8), GETDATE()-8, 112) AND CONVERT(VARCHAR(8), GETDATE()-1, 112)
+				</if>
+				<if test='PERIOD.equals("M")'>
+					AND CONVERT(VARCHAR(8), timestamp, 112) BETWEEN CONVERT(VARCHAR(8), GETDATE()-31, 112) AND CONVERT(VARCHAR(8), GETDATE()-1, 112)
+				</if>
+				GROUP BY ISP_ID, LOCALITY
+			)A
+			GROUP BY A.LOCALITY
+		)M
+	</select>
+	
+	<!-- 지역별, 통신사별 다운로드 업로드 -->
+	<select id="STATICS_LOCALITY_NETWORK" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			TI.LOCALITY, SUM(TI.SKT)AS SKT, SUM(TI.KT)AS KT, SUM(TI.LGU)AS LGU
+		FROM(
+			SELECT
+				M.LOCALITY,
+				CASE M.ISP_NAME WHEN 'SKT' THEN M.DOWNLOAD
+				ELSE 0
+				END SKT,
+				CASE M.ISP_NAME WHEN 'KT' THEN M.DOWNLOAD
+				ELSE 0
+				END KT,
+				CASE M.ISP_NAME WHEN 'LGU+' THEN M.DOWNLOAD
+				ELSE 0
+				END LGU
+			FROM(
+				SELECT
+					ISNULL(A.download, 0) AS DOWNLOAD,
+					A.LOCALITY,
+					B.ISP_ID,
+					B.ISP_NAME
+				FROM(
+					SELECT  
+						 ISP_ID
+						, ROUND(AVG(CONVERT(FLOAT, case when download_bandwidth > 0 then download_bandwidth else 0 end)), 2)AS download
+						, LOCALITY
+					FROM SPEEDTEST2
+					WHERE 1=1
+					AND ISP_ID IS NOT NULL
+					<if test='NETWORK.equals("3G")'>
+						AND NETWORK_ID = 1
+					</if>
+					<if test='NETWORK.equals("WIFI")'>
+						AND NETWORK_ID = 2
+					</if>
+					<if test='NETWORK.equals("LTE")'>
+						AND NETWORK_ID = 3
+					</if>	
+					AND ISP_ID  <![CDATA[ <> ]]>  0
+					AND LOCALITY IN ('서울특별시','인천광역시','대구광역시','대전광역시','부산광역시','광주광역시','울산광역시','경기도','강원도','충청남도','충청북도','경상남도','경상북도','전라남도','전라북도','제주도','세종특별자치시')
+					<if test='PERIOD.equals("D")'>
+						AND CONVERT(VARCHAR(8), timestamp, 112) = CONVERT(VARCHAR(8), GETDATE()-1, 112)
+					</if>
+					<if test='PERIOD.equals("W")'>
+						AND CONVERT(VARCHAR(8), timestamp, 112) BETWEEN CONVERT(VARCHAR(8), GETDATE()-8, 112) AND CONVERT(VARCHAR(8), GETDATE()-1, 112)
+					</if>
+					<if test='PERIOD.equals("M")'>
+						AND CONVERT(VARCHAR(8), timestamp, 112) BETWEEN CONVERT(VARCHAR(8), GETDATE()-31, 112) AND CONVERT(VARCHAR(8), GETDATE()-1, 112)
+					</if>
+					GROUP BY ISP_ID, LOCALITY
+				)A RIGHT OUTER JOIN ISP B ON A.isp_id = B.isp_id 
+				WHERE  B.isp_id IN(45004, 45006, 45008)
+			)M
+		)TI
+		GROUP BY TI.LOCALITY
+		ORDER BY TI.LOCALITY
+	</select>
+		
+	<!-- 웹 속도 통계 -->
+	<select id="WEB_STATISTICS" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			M.NETWORK_ID,
+			STR(AVG(ROUND(M.NAVER, 2)), 8 ,2)AS NAVER,
+			STR(AVG(ROUND(M.DAUM, 2)), 8 ,2)AS DAUM
+		FROM(
+			SELECT
+				s2.NETWORK_ID,  	
+				ISNULL(NAVER, 0) AS NAVER,                                                                                                                      
+				ISNULL(DAUM, 0) AS DAUM                                                                                                                         
+			FROM                                                                                                                                                 
+				(
+				SELECT 
+					B.ISP_NAME, 
+					A.ISP_ID,                                                                                                                                
+					A.NETWORK_ID,                                                                                                                            
+					ISNULL(A.INTERVAL_1, 0) AS NAVER,                                                                                                        
+					ISNULL(A.INTERVAL_2, 0) AS DAUM                                                                                                                     
+				FROM                                                                                                                                          
+					(
+						SELECT 
+							WEB.ISP_ID ,                                                                                                                       
+							WEB.NETWORK_ID,                                                                                                                     
+							STR(ROUND(AVG(CONVERT(FLOAT,WEB.INTERVAL_1)), 2), 8, 2) AS INTERVAL_1,                                                                         
+							STR(ROUND(AVG(CONVERT(FLOAT,WEB.INTERVAL_2)), 2), 8, 2) AS INTERVAL_2                                                                          
+						FROM WEBTEST WEB                                                                                                                         
+						WHERE 1=1                                                                                                                               
+						AND WEB.ISP_ID IS NOT NULL                                                                                                          
+						AND WEB.NETWORK_ID IN (1, 2, 3)     
+						<if test='PERIOD.equals("D")'>
+							AND CONVERT(VARCHAR(8), timestamp, 112) = CONVERT(VARCHAR(8), GETDATE()-1, 112)
+						</if>
+						<if test='PERIOD.equals("W")'>
+							AND CONVERT(VARCHAR(8), timestamp, 112) BETWEEN CONVERT(VARCHAR(8), GETDATE()-8, 112) AND CONVERT(VARCHAR(8), GETDATE()-1, 112)
+						</if>
+						<if test='PERIOD.equals("M")'>
+							AND CONVERT(VARCHAR(8), timestamp, 112) BETWEEN CONVERT(VARCHAR(8), GETDATE()-31, 112) AND CONVERT(VARCHAR(8), GETDATE()-1, 112)
+						</if>                                                                                                
+						GROUP BY WEB.ISP_ID, WEB.NETWORK_ID                                                                                                                      
+					)A RIGHT OUTER JOIN ISP B ON A.ISP_ID = B.ISP_ID                                                                                                                   
+					WHERE B.ISP_ID IN(45004, 45006, 45008)                                                                                                         
+				) s1 RIGHT OUTER JOIN (SELECT NETWORK_ID, ISP_ID FROM WEBTEST WHERE NETWORK_ID <![CDATA[ <> ]]> 0  AND ISP_ID is not null GROUP BY NETWORK_ID ,ISP_ID) s2                                                                                                                                            
+					  ON s1.NETWORK_ID = s2.NETWORK_ID AND s1.ISP_ID = s2.ISP_ID                                                                                                                       
+				WHERE  s2.ISP_ID IN(45004, 45006, 45008) 
+		)M
+		WHERE 1=1
+		AND (M.NETWORK_ID = 1 OR M.NETWORK_ID = 2 OR M.NETWORK_ID = 3)
+		GROUP BY M.NETWORK_ID
+	</select>
+	
+	<!-- SUB_ID  -->
+	<select id="SUBS_COUNT" resultType="int">
+		SELECT MAX(SUBS_ID)+1 AS CNT FROM SPEEDTEST2
+	</select>
+	
+	<!-- TEST_ID -->
+	<select id="TEST_COUNT" resultType="int">
+		SELECT MAX(TEST_ID)+1 AS CNT FROM SPEEDTEST2
+	</select>
+	
+	<!-- GROUP_ID -->
+	<select id="GROUP_COUNT" resultType="int">
+		SELECT MAX(GROUP_ID)+1 AS CNT FROM SPEEDTEST2
+	</select>
+	
+	<!-- SUBSCRIBE TABLE INSERT -->
+	<insert id="subscribeInternetInsert" parameterType="hashmap">
+		INSERT INTO SUBSCRIBE(
+			SUBS_ID, DEVICE_ID, DEVICE_OS, DEVICE_KIND, TIMESTAMP
+		)VALUES(
+			#{SUBS_ID}, #{device_id}, #{deviceVersion}, #{deviceModel}, CONVERT(VARCHAR(20), GETDATE(), 120)
+		)
+	</insert>
+	
+	<!-- 등록 SUBS_ID  -->
+	<select id="deviceSubsId" parameterType="hashmap" resultType="int">
+		SELECT
+			ISNULL(MAX(SUBS_ID), 0) AS CNT  
+		FROM SUBSCRIBE
+		WHERE DEVICE_ID = #{device_id}
+	</select>
+	
+	<!-- SUBSCRIBE  -->
+	
+	<!-- SPEEDTEST2 TABLE INSERT -->
+	<select id="speedtest2InternetInsert" parameterType="hashmap">
+		INSERT INTO SPEEDTEST2(
+			SUBS_ID, NETWORK_ID, TEST_ID, GROUP_ID, CURRENT_COUNT, TIMESTAMP, ISP_ID, LOCATION_ID, BRANCH_ID,
+			DOWNLOAD_TRANSFER, DOWNLOAD_BANDWIDTH, UPLOAD_TRANSFER, UPLOAD_BANDWIDTH, UDP_TRANSFER, UDP_JITTER,
+			UDP_LOSS, START_TIME, END_TIME, DOWNLOAD_CONNECTION_SUCCESS, DOWNLOAD_TRANSFER_COMPLETION, DOWNLOAD_NETWORK_VALIDATION,
+			UPLOAD_CONNECTION_SUCCESS, UPLOAD_TRANSFER_COMPLETION, UPLOAD_NETWORK_VALIDATION, LATITUDE, LONGITUDE, DOWNLOAD_ELAPSE,
+			UPLOAD_ELAPSE, MI_ID, TIMELINE, USER_INFO1, USER_INFO2, COUNTRY, LOCALITY, SUBLOCALITY, THOROUGHFARE, SUBTHOROUGHFARE,
+			download_error_code, upload_error_code, udp_error_code, cell_id, seq, category, country_Code
+		)VALUES(
+			#{SUBS_ID}, #{network_id}, #{TEST_ID}, #{GROUP_ID}, #{current_count}, GETDATE(), #{isp_id}, '0', '0', 
+			#{download_transfer}, #{download_bandwidth}, #{upload_transfer}, #{upload_bandwidth}, #{udp_transfer}, #{udp_jitter}, 
+			#{udp_loss}, #{start_time}, #{end_time}, #{download_connection_success}, #{download_transfer_completion}, #{download_network_validation}, 
+			#{upload_connection_success}, #{upload_transfer_completion}, #{upload_network_validation}, 0, 0, #{download_elapse}, 
+			#{upload_elapse}, '', #{timeline}, '', '', #{country}, #{locality}, #{sublocality}, #{thoroughfare}, #{subThoroughfare},
+			#{download_error_code}, #{upload_error_code}, #{udp_error_code}, #{cell_id}, '', #{category}, #{country_Code}
+		)
+	</select>
+	
+	<!-- WEB SUB_ID  -->
+	<select id="WEB_SUBS_COUNT" resultType="int">
+		SELECT MAX(SUBS_ID)+1 AS CNT FROM WEBTEST
+	</select>
+	
+	<!-- TEST_ID -->
+	<select id="WEB_TEST_COUNT" resultType="int">
+		SELECT MAX(TEST_ID)+1 AS CNT FROM WEBTEST
+	</select>
+	
+	<!-- GROUP_ID -->
+	<select id="WEB_GROUP_COUNT" resultType="int">
+		SELECT MAX(GROUP_ID)+1 AS CNT FROM WEBTEST
+	</select>
+	
+	<!-- WEB INSERT -->
+	<insert id="insertWebWebTest" parameterType="egovframework.nia.spdMsr.sqlMap.webModel">
+		INSERT INTO WEBTEST(
+			SUBS_ID, NETWORK_ID, TEST_ID, GROUP_ID, CURRENT_COUNT, TIMESTAMP, ISP_ID, URL_1, TRANSFER_1, INTERVAL_1,
+			URL_2, TRANSFER_2, INTERVAL_2, URL_3, TRANSFER_3, INTERVAL_3,  START_TIME, END_TIME, CONNECTION_SUCCESS, 
+		 	TIMELINE, COUNTRY, LOCALITY, SUBLOCALITY, THOROUGHFARE, SUBTHOROUGHFARE, cell_id
+		)VALUES(
+			#{subs_id}, #{network_id}, #{test_id}, #{group_id}, #{current_count}, GETDATE(), #{isp_id}, #{url_1}, #{transfer_1}, 
+			cast(#{interval_1} as decimal(5,2)), #{url_2}, #{transfer_2}, cast(#{interval_2} as decimal(5,2)), #{url_3}, #{transfer_3}, cast(#{interval_3} as decimal(5,2)), 
+			#{start_time}, #{end_time}, #{connection_success}, #{timeline}, #{country}, #{locality}, #{sublocality}, #{thoroughfare}, #{subthoroughfare}, #{cell_id} 
+		)
+	</insert>
+</mapper>

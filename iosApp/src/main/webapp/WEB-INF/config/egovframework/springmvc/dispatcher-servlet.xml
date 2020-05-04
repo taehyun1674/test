@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <context:component-scan base-package="egovframework.nia">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
+    
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+    
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+        <property name="interceptors">
+            <list>
+                 <ref bean="authorizationInterceptor"/>
+            </list>
+        </property>
+    </bean>
+    
+	<!-- ExceptionResolver -->
+	<bean id="exceptionResolver" class="egovframework.core.resolver.DefaultExceptionResolver" />
+	
+	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+	
+    <!-- 타일즈 viewResolver -->
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+		<property name="order" value="1" />
+	</bean>
+	
+    <!-- Tiles 2 Configurer -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+	 		<list>
+	  			<value>/WEB-INF/tiles/default-layout.xml</value>
+	 		</list>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="1" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json" />
+			</map>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<!-- JSON 요청을 처리할 뷰 -->
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+					<property name="contentType" value="application/json;charset=UTF-8" />
+				</bean>
+			</list>
+		</property>
+	</bean> 
+	
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="2"
+	    p:viewClass="org.springframework.web.servlet.view.JstlView"
+	    p:prefix="/WEB-INF/jsp/nia/" p:suffix=".jsp"/>
+	
+	<!-- interceptor -->
+	<bean id="authorizationInterceptor" class="egovframework.core.interceptor.AuthorizationInterceptor"/>
+    
+	<mvc:interceptors>
+         <mvc:interceptor>
+         	<mvc:mapping path="/**/*.do" />
+         	<mvc:exclude-mapping path="/index.do"/>
+            <ref bean="authorizationInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors> 
+    
+    <!-- 언어 -->
+    <mvc:interceptors>
+    	<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"> 
+    		<property name="paramName" value="lang" /> 
+    	</bean>
+    </mvc:interceptors>
+    
+    <!-- multipart resolver -->
+	<!-- 최대 업로드 사이즈 50M 지정 -->
+	<bean id="spring.RegularCommonsMultipartResolver"
+			class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+	    	p:maxUploadSize="52428800"
+	    	p:maxInMemorySize="10485760"/>
+</beans>

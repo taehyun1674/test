@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>설정</title>
+	<meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="css/common.css" media="screen" />
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<div class="wrapper pageWrap">
+	<div class="contentContainer systemWrap">
+		<div class="topTitle">
+			<img class="logo" src="images/logo.png" width="" height="" alt="" />
+			<p>설정</p>
+		</div>
+		<div class="contentWrap">			
+		<!--	191123	-->
+			<div class="topmenu">
+				<ul>
+					<li>
+						<p class="title">데이터망 허용</p>
+						<div class="toggleWrap">
+							<input type="checkbox" id="toggle" />
+							<label for="toggle"></label>
+						</div>
+					</li>
+					<li>
+						<p class="title">다중 접속 허용</p>
+						<div class="toggleWrap">
+							<input type="checkbox" id="multi" />
+							<label for="multi"></label>
+						</div>
+					</li>
+				</ul>
+			</div>
+		<!--	//191123	-->
+			<dl>
+				<dt>모델명</dt>
+				<dd>SM-N950N</dd>
+				<dt>OS 버전</dt>
+				<dd>8.0.0</dd>
+				<dt>CPU 타입</dt>
+				<dd>arm64-v8a</dd>
+				<dt>네트워크 타입</dt>
+				<dd>WiFi</dd>
+				<dt>내부 IP</dt>
+				<dd>내부 IP</dd>
+				<dt>위도</dt>
+				<dd>0</dd>
+				<dt>경도</dt>
+				<dd>0</dd>
+				<dt>앱버전</dt>
+				<dd>1.2.01</dd>
+			</dl>
+		<!--	191123	-->
+			<div class="btnWrap">
+				<a class="btn">확인</a>
+			</div>
+		<!--	//191123	-->
+			<p class="popupBtn" id="wifiPopup">WiFi Info</p>
+			<p class="popupBtn" id="companyPopup">회사소개</p>
+			<span class="logoWrap">
+				<img src="images/logo_system.png" width="" height="" alt="" />
+			</span>
+		</div>
+		<div class="bottomMenuWrap">
+			<ul>
+				<li class="speed"><a href="#">인터넷속도</a></li>
+				<li class="time"><a href="#">웹접속시간</a></li>
+				<li class="history"><a href="#">측정이력</a></li>
+				<li class="statistics"><a href="#">측정통계</a></li>
+				<li class="system on"><a href="#">설정</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!--	popup - wifi info	-->
+	<div class="popupContainer wifiPopup">
+		<div class="popupWrap">
+			<div class="popupTopWrap">
+				<a class="close">close</a>
+			</div>
+			<div class="popupContentWrap">
+				<div class="popupContent">
+					<p class="title">
+						WiFi Info
+					</p>
+					<dl>
+						<dt>네트워크 타입</dt>
+						<dd>WiFi</dd>
+						<dt>내부 IP </dt>
+						<dd>192.168.0.4</dd>
+						<dt>BSSID </dt>
+						<dd>64:e5:99:6b:f5:a4</dd>
+						<dt>RSSI</dt>
+						<dd>-38 dBm</dd>
+						<dt>MAC Addr </dt>
+						<dd>02:00:00:00:00:00</dd>
+						<dt>Supplicant State</dt>
+						<dd>COMPLETED</dd>
+					</dl>
+					<span></span>
+				</div>
+			</div>
+		</div>
+		<div class="popupDimmed"></div>
+	</div>
+<!--	//	popup - wifi info	-->
+<!--	popup - 회사소개	-->
+	<div class="popupContainer companyPopup">
+		<div class="popupWrap">
+			<div class="popupTopWrap">
+				<a class="close">close</a>
+			</div>
+			<div class="popupContentWrap">
+				<div class="popupContent">
+					<p class="title">
+						무선 인터넷 품질 측정이란?
+					</p>
+					<dl>
+						<dt>서비스 소개</dt>
+						<dd>무선 데이터 트래픽의 급격한 증가로 인해 모바일 기기의 서비스 품질에 대한 관심이 점차 높아지고 있습니다.<br />한국정보화진흥원은 무선 인터넷 서비스(3G, LTE, WiFi)에 대해 객관적이고 공정한 품질 정보를 사용자에게 제공하기 위해 무선 인터넷 품질 측정 앱을 무상으로 제공하고 있습니다.<br />다양한 무선 인터넷(3G, LTE,  WiFi) 서비스를  스마트 기기에서 직접 측정하고 결과를 확인 할 수 있습니다.</dd>
+						<dt>개인정보보호정책</dt>
+						<dd>한국정보화진흥원은 측정하신 품질 정보를 개인정보보호법에 의거하여 서비스 품질 개선의 목적 이외에 이용하지 않으며 제3자에게 정보 제공 및 저장을 하지 않습니다.</dd>
+						<dt>NIA SPEED 소개</dt>
+						<dd>한국정보화진흥원은 다년간의 유.무선 인터넷 품질 측정 기술 노하우를 바탕으로 무선 인터넷 외에 유선 인터넷(100Mbps, 1Gbps등), VolP(인터넷 전화)등도 이용자가 직접 품질을 측정하고 그 결과를 확인할 수 있도록 다양한 서비스를 제공하고 있습니다.</dd>
+					</dl>
+					<span>http://speed.nia.or.kr</span>
+				</div>
+			</div>
+		</div>
+		<div class="popupDimmed"></div>
+	</div>
+<!--	//	popup - 회사소개	-->
+</body>
+</html>

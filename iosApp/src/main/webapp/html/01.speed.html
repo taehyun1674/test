@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="height=device-height, width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>인터넷속도</title>
+	<meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="css/common.css" media="screen" />
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<div class="wrapper pageWrap">
+	<div class="contentContainer speedWrap">
+		<div class="topTitle">
+			<img class="logo" src="images/logo.png" width="" height="" alt="" />
+			<p>LTE 인터넷 속도 측정</p>
+		</div>
+		<div class="contentWrap">
+			<div class="speedBg">
+				<img class="speed" src="images/img_speed.png" width="" height="" alt="" style="transform: rotate(180.5deg) scale(1, 1);">
+				<img class="ruler" src="images/img_ruler.png" width="" height="" alt="">
+			</div>
+			<div class="speedResultWrap">	<!--	측정 전 클래스 추가 - ready	-->
+				<p class="title">업로드</p>
+				<p class="num">80.65</p>
+				<p class="unit">Mbps</p>
+			</div>
+			<dl>
+				<dt>다운로드<span>Mbps</span></dt>
+				<dd class="ready">0</dd>	<!--	측정 전 클래스 추가 - ready	-->
+				<dt>업로드<span>Mbps</span></dt>
+				<dd>80.65</dd>
+				<dt>지연시간<span>ms</span></dt>
+				<dd>21.56</dd>
+				<dt>손실률<span>%</span></dt>
+				<dd>0</dd>
+			</dl>
+			<div class="btnWrap">
+				<input type="button" name="" id="" class="btn" value="중지" />
+			</div>
+		</div>
+		<div class="bottomMenuWrap">
+			<ul>
+				<li class="speed on"><a href="#">인터넷속도</a></li>
+				<li class="time"><a href="#">웹접속시간</a></li>
+				<li class="history"><a href="#">측정이력</a></li>
+				<li class="statistics"><a href="#">측정통계</a></li>
+				<li class="system"><a href="#">설정</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -66,14 +66,28 @@
 			<dt>
 				<p class="inputWrap">
 					<input type="checkbox" name="naver" id="check01" />
-					<label for="check01"><img class="logo" src="${pageContext.request.contextPath }/images/img_naver.png" width="" height="" alt="naver" /></label>
+					<c:choose>
+						<c:when test="${sessionScope.lang eq 'ko'}">
+							<label for="check01"><img class="logo" src="${pageContext.request.contextPath }/images/img_naver.png" width="" height="" alt="naver" /></label>
+						</c:when>
+						<c:otherwise>
+							<label for="check01"><img class="logo" src="${pageContext.request.contextPath }/images/img_google.png" width="" height="" alt="google" /></label>
+						</c:otherwise>
+					</c:choose>
 				</p>
 			</dt>
 			<dd><span id="web_naver">0</span> sec</dd>
 			<dt>
 				<p class="inputWrap">
 					<input type="checkbox" name="daum" id="check02" />
-					<label for="check02"><img class="logo" src="${pageContext.request.contextPath }/images/img_daum.png" width="" height="" alt="daum" /></label>
+					<c:choose>
+						<c:when test="${sessionScope.lang eq 'ko'}">
+							<label for="check02"><img class="logo" src="${pageContext.request.contextPath }/images/img_daum.png" width="" height="" alt="daum" /></label>
+						</c:when>	
+						<c:otherwise>
+							<label for="check02"><img class="logo" src="${pageContext.request.contextPath }/images/img_youtube.png" width="" height="" alt="youtube" /></label>
+						</c:otherwise>
+					</c:choose>
 				</p>
 			</dt>
 			<dd><span id="web_daum">0</span> sec</dd>	<!--	측정 전 클래스 추가 - ready	-->

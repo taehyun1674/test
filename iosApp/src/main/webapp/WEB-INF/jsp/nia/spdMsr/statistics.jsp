@@ -539,10 +539,20 @@
 				</div>
 				<div class="legendWrap">
 					<dl>
-						<dt class="naver">NAVER</dt>
-						<dd class="naver"></dd>
-						<dt class="daum">DAUM</dt>
-						<dd class="daum"></dd>
+						<c:choose>
+							<c:when test="${sessionScope.lang eq 'ko'}">
+								<dt class="naver">NAVER</dt>
+								<dd class="naver"></dd>
+								<dt class="daum">DAUM</dt>
+								<dd class="daum"></dd>
+							</c:when>
+							<c:otherwise>
+								<dt class="google">Google</dt>
+								<dd class="google"></dd>
+								<dt class="youtube">Youtube</dt>
+								<dd class="youtube"></dd>
+							</c:otherwise>
+						</c:choose>
 					</dl>
 				</div>
 				<div class="graphWrap">
@@ -557,8 +567,16 @@
 								</li>
 								<li class="graph" id="webLteGraph">
 									<ul>
-										<li class="naver" id="lteNaverGraph"></li>
-										<li class="daum" id="lteDaumGraph"></li>
+										<c:choose>
+											<c:when test="${sessionScope.lang eq 'ko'}">
+												<li class="naver" id="lteNaverGraph"></li>
+												<li class="daum" id="lteDaumGraph"></li>
+											</c:when>
+											<c:otherwise>
+												<li class="google" id="lteNaverGraph"></li>
+												<li class="youtube" id="lteDaumGraph"></li>
+											</c:otherwise>
+										</c:choose>
 									</ul>								
 								</li>
 								<li class="title">LTE</li>
@@ -574,8 +592,17 @@
 								</li>
 								<li class="graph" id="web3gGraph">
 									<ul>
-										<li class="naver" id="3gNaverGraph"></li>
-										<li class="daum" id="3gDaumGraph"></li>
+										<c:choose>
+											<c:when test="${sessionScope.lang eq 'ko'}">
+												<li class="naver" id="3gNaverGraph"></li>
+												<li class="daum" id="3gDaumGraph"></li>
+											</c:when>
+											<c:otherwise>
+												<li class="google" id="3gNaverGraph"></li>
+												<li class="youtube" id="3gDaumGraph"></li>
+											</c:otherwise>
+										</c:choose>
+										
 									</ul>								
 								</li>
 								<li class="title">3G</li>
@@ -591,8 +618,16 @@
 								</li>
 								<li class="graph" id="webWifiGraph">
 									<ul>
-										<li class="naver" id="wifiNaverGraph"></li>
-										<li class="daum" id="wifiDaumGraph"></li>
+										<c:choose>
+											<c:when test="${sessionScope.lang eq 'ko'}">
+												<li class="naver" id="wifiNaverGraph"></li>
+												<li class="daum" id="wifiDaumGraph"></li>
+											</c:when>
+											<c:otherwise>
+												<li class="google" id="wifiNaverGraph"></li>
+												<li class="youtube" id="wifiDaumGraph"></li>
+											</c:otherwise>
+										</c:choose>
 									</ul>								
 								</li>
 								<li class="title">WiFi</li>

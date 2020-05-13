@@ -387,6 +387,9 @@ body	{}
 .statisticsWrap .contentWrap .tableWrap.time .graphWrap > ul > li .graph .naver p	{background:url("../images/legend_naver.png") 50% 0% repeat-y; background-size:contain;}
 .statisticsWrap .contentWrap .tableWrap.time .graphWrap > ul > li .graph .daum p	{background:url("../images/legend_daum.png") 50% 0% repeat-y; background-size:contain;}
 
+.statisticsWrap .contentWrap .tableWrap.time .graphWrap > ul > li .graph .google p	{background:url("../images/legend_google.png") 50% 0% repeat-y; background-size:contain;}
+.statisticsWrap .contentWrap .tableWrap.time .graphWrap > ul > li .graph .youtube p	{background:url("../images/legend_youtube.png") 50% 0% repeat-y; background-size:contain;}
+
 .statisticsWrap .contentWrap .tableWrap.time	{padding-bottom:114px; text-align:center; font-size:32px;}
 
 .speed_table .summaryWrap	{position:relative;}
